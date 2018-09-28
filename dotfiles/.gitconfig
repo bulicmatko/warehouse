@@ -21,9 +21,8 @@
     # Pull with rebase
     pullr = pull --rebase
 
-    # Delete any branches that have been merged into master
-    # See also: https://gist.github.com/robmiller/5133264
-    delete-merged-branches = "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    # Delete any branches that have been merged into current branch, except 'master' and 'develop'
+    delete-merged-branches = !"git branch --merged | egrep -v \"(^\\*|master|develop)\" | xargs git branch -d"
 
     # Clone a repository including all submodules
     clone-all = clone --recursive
@@ -80,9 +79,6 @@
 
     # Find commits by commit message
     # fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
-    # Remove branches that have already been merged with master
-    delete-merged-branches = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
